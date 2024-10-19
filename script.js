@@ -58,17 +58,24 @@ video.addEventListener('timeupdate', function () {
   }
 });
 
-// Ajouter la gestion du "buffering" (chargement de la vidéo)
+// Gérer le "buffering" (chargement de la vidéo)
+let isBuffering = false;
+
 video.addEventListener('waiting', function () {
-  // Lorsque la vidéo est en train de charger, on met l'audio en pause
+  isBuffering = true;
+  // Pause l'audio pendant que la vidéo est en train de charger
   if (!audio.paused) {
     audio.pause();
   }
 });
 
-video.addEventListener('playing', function () {
-  // Lorsque la vidéo reprend, l'audio continue à partir de la position correcte
-  if (audio.paused) {
-    audio.play();
+video.addEventListener('canplay', function () {
+  if (isBuffering) {
+    isBuffering = false;
+    // Reprend l'audio lorsque la vidéo est prête à jouer
+    if (video.readyState >= 3) { // readyState 3 signifie que la vidéo est prête à être jouée
+      audio.currentTime = video.currentTime; // Assure que l'audio et la vidéo sont synchronisés
+      audio.play();
+    }
   }
 });
