@@ -13,10 +13,16 @@ if (Hls.isSupported()) {
   hlsVideo.on(Hls.Events.MANIFEST_PARSED, function () {
     video.play();
   });
+  hlsVideo.on(Hls.Events.ERROR, function (event, data) {
+    console.error('Erreur de chargement vidéo :', data);
+  });
 } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
   video.src = videoUrl;
   video.addEventListener('loadedmetadata', function () {
     video.play();
+  });
+  video.addEventListener('error', function () {
+    console.error('Erreur de lecture vidéo.');
   });
 } else {
   alert('Votre navigateur ne supporte pas la lecture de fichiers vidéo M3U8.');
@@ -30,10 +36,16 @@ if (Hls.isSupported()) {
   hlsAudio.on(Hls.Events.MANIFEST_PARSED, function () {
     audio.play();
   });
+  hlsAudio.on(Hls.Events.ERROR, function (event, data) {
+    console.error('Erreur de chargement audio :', data);
+  });
 } else if (audio.canPlayType('application/vnd.apple.mpegurl')) {
   audio.src = audioUrl;
   audio.addEventListener('loadedmetadata', function () {
     audio.play();
+  });
+  audio.addEventListener('error', function () {
+    console.error('Erreur de lecture audio.');
   });
 }
 
