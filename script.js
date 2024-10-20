@@ -58,7 +58,7 @@ video.addEventListener('timeupdate', function () {
   }
 });
 
-// Gérer le "buffering" (chargement de la vidéo)
+// Gérer le buffering
 let isBuffering = false;
 
 video.addEventListener('waiting', function () {
@@ -78,9 +78,7 @@ video.addEventListener('canplay', function () {
 
 // Contrôle du volume
 const volumeSlider = document.getElementById('volumeSlider');
-
 volumeSlider.addEventListener('input', function () {
   audio.volume = volumeSlider.value;
 });
-
 audio.volume = volumeSlider.value;
