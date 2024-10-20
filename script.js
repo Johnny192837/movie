@@ -63,7 +63,6 @@ let isBuffering = false;
 
 video.addEventListener('waiting', function () {
   isBuffering = true;
-  // Pause l'audio pendant que la vidéo est en train de charger
   if (!audio.paused) {
     audio.pause();
   }
@@ -72,10 +71,16 @@ video.addEventListener('waiting', function () {
 video.addEventListener('canplay', function () {
   if (isBuffering) {
     isBuffering = false;
-    // Reprend l'audio lorsque la vidéo est prête à jouer
-    if (video.readyState >= 3) { // readyState 3 signifie que la vidéo est prête à être jouée
-      audio.currentTime = video.currentTime; // Assure que l'audio et la vidéo sont synchronisés
-      audio.play();
-    }
+    audio.currentTime = video.currentTime;
+    audio.play();
   }
 });
+
+// Contrôle du volume
+const volumeSlider = document.getElementById('volumeSlider');
+
+volumeSlider.addEventListener('input', function () {
+  audio.volume = volumeSlider.value;
+});
+
+audio.volume = volumeSlider.value;
