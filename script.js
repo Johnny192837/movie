@@ -13,16 +13,10 @@ if (Hls.isSupported()) {
   hlsVideo.on(Hls.Events.MANIFEST_PARSED, function () {
     video.play();
   });
-  hlsVideo.on(Hls.Events.ERROR, function (event, data) {
-    console.error('Erreur de chargement vidéo :', data);
-  });
 } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
   video.src = videoUrl;
   video.addEventListener('loadedmetadata', function () {
     video.play();
-  });
-  video.addEventListener('error', function () {
-    console.error('Erreur de lecture vidéo.');
   });
 } else {
   alert('Votre navigateur ne supporte pas la lecture de fichiers vidéo M3U8.');
@@ -36,16 +30,10 @@ if (Hls.isSupported()) {
   hlsAudio.on(Hls.Events.MANIFEST_PARSED, function () {
     audio.play();
   });
-  hlsAudio.on(Hls.Events.ERROR, function (event, data) {
-    console.error('Erreur de chargement audio :', data);
-  });
 } else if (audio.canPlayType('application/vnd.apple.mpegurl')) {
   audio.src = audioUrl;
   audio.addEventListener('loadedmetadata', function () {
     audio.play();
-  });
-  audio.addEventListener('error', function () {
-    console.error('Erreur de lecture audio.');
   });
 }
 
@@ -70,11 +58,12 @@ video.addEventListener('timeupdate', function () {
   }
 });
 
-// Gérer le buffering
+// Gérer le "buffering" (chargement de la vidéo)
 let isBuffering = false;
 
 video.addEventListener('waiting', function () {
   isBuffering = true;
+  // Pause l'audio pendant que la vidéo est en train de charger
   if (!audio.paused) {
     audio.pause();
   }
@@ -83,14 +72,10 @@ video.addEventListener('waiting', function () {
 video.addEventListener('canplay', function () {
   if (isBuffering) {
     isBuffering = false;
-    audio.currentTime = video.currentTime;
-    audio.play();
+    // Reprend l'audio lorsque la vidéo est prête à jouer
+    if (video.readyState >= 3) { // readyState 3 signifie que la vidéo est prête à être jouée
+      audio.currentTime = video.currentTime; // Assure que l'audio et la vidéo sont synchronisés
+      audio.play();
+    }
   }
 });
-
-// Contrôle du volume
-const volumeSlider = document.getElementById('volumeSlider');
-volumeSlider.addEventListener('input', function () {
-  audio.volume = volumeSlider.value;
-});
-audio.volume = volumeSlider.value;
