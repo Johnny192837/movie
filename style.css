@@ -1,19 +1,12 @@
 html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: black;
-  overflow: hidden; /* Empêche le scrolling vertical et horizontal */
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
 }
 
 video {
-  max-width: 100vw; /* Assure que la vidéo ne dépasse pas la largeur de la fenêtre */
-  max-height: 100vh; /* Assure que la vidéo ne dépasse pas la hauteur de la fenêtre */
-  width: auto;
-  height: auto;
-  object-fit: contain; /* Assure que la vidéo s'ajuste sans déformation */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Pour couvrir toute la page */
 }
