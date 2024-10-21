@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>movie</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video and Audio Sync</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Ajout du script HLS.js -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
-    <video id="videoPlayer" controls autoplay></video>
-    <audio id="audioPlayer" controls style="display:none;"></audio>
-    <script src="script.js"></script>
+  <video id="videoPlayer" style="width: 100%; height: 100%;" oncontextmenu="return false;"></video>
+  <audio id="audioPlayer" style="display: none;"></audio>
+
+  <script src="script.js"></script>
 </body>
 </html>
