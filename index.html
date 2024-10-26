@@ -15,7 +15,7 @@
     <audio id="audioPlayer" style="display:none;"></audio>
 
     <!-- Bouton manuel pour le Cast -->
-    <button id="castButton">Cast</button>
+    <button id="castButton" aria-label="Cast"></button>
 
     <script src="script.js"></script>
     <script>
@@ -31,8 +31,10 @@
                 // Configuration du bouton Cast
                 const castButton = document.getElementById('castButton');
                 castButton.onclick = () => {
-                    const session = context.requestSession();
-                    session.catch(error => console.error('Erreur de cast :', error));
+                    context.requestSession().then(
+                        () => console.log('Casting en cours...'),
+                        error => console.error('Erreur de cast :', error)
+                    );
                 };
             }
         };
