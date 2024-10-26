@@ -3,7 +3,7 @@ html, body {
   padding: 0;
   height: 100%;
   width: 100%;
-  overflow: hidden; /* Empêche le défilement */
+  overflow: hidden; /* Empêche le défilement vertical et horizontal */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,7 +11,10 @@ html, body {
 }
 
 video {
-  width: 100vw; /* Ajuste la vidéo à la largeur de la fenêtre */
-  height: 100vh; /* Ajuste la vidéo à la hauteur de la fenêtre */
-  object-fit: cover; /* Assure que la vidéo remplit l’espace sans distorsion */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover; /* Recouvre tout l’écran sans distorsion */
 }
