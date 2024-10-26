@@ -1,31 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>movie</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <!-- API Google Cast intégrée -->
-  <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie with Cast</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
 </head>
 <body>
-  <video id="videoPlayer" controls autoplay></video>
-  <audio id="audioPlayer" controls style="display:none;"></audio>
+    <div id="videoContainer">
+        <video id="videoPlayer" controls autoplay></video>
+    </div>
+    <audio id="audioPlayer" style="display:none;"></audio>
 
-  <script src="script.js"></script>
+    <!-- Bouton manuel pour le Cast -->
+    <button id="castButton">Cast</button>
 
-  <script>
-    // Initialisation de Google Cast
-    window['__onGCastApiAvailable'] = function(isAvailable) {
-      if (isAvailable) {
-        const context = cast.framework.CastContext.getInstance();
-        context.setOptions({
-          receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
-          autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
-        });
-      }
-    };
-  </script>
+    <script src="script.js"></script>
+    <script>
+        // Initialisation du Cast
+        window['__onGCastApiAvailable'] = function(isAvailable) {
+            if (isAvailable) {
+                const context = cast.framework.CastContext.getInstance();
+                context.setOptions({
+                    receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
+                    autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
+                });
+                
+                // Configuration du bouton Cast
+                const castButton = document.getElementById('castButton');
+                castButton.onclick = () => {
+                    const session = context.requestSession();
+                    session.catch(error => console.error('Erreur de cast :', error));
+                };
+            }
+        };
+    </script>
 </body>
 </html>
