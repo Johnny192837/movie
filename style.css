@@ -23,14 +23,17 @@ video {
   object-fit: cover;
 }
 
+/* Bouton Cast en haut à droite */
 #castButton {
   position: absolute;
   top: 10px;
-  left: 10px;
-  z-index: 10;
-  padding: 8px 12px;
-  background-color: white;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  background-image: url('https://www.gstatic.com/cast/sdk/images/cast_icon_black.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
   border: none;
   cursor: pointer;
-  border-radius: 4px;
+  z-index: 10;
 }
