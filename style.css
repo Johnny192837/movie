@@ -23,16 +23,17 @@ video {
   object-fit: cover;
 }
 
-/* Bouton Cast en haut à droite */
+/* Bouton Cast en haut à droite avec fond transparent */
 #castButton {
   position: absolute;
   top: 10px;
   right: 10px;
   width: 32px;
   height: 32px;
-  background-image: url('https://cdn.discordapp.com/attachments/1299859288969445430/1299859382221144084/cast_icon_black.png?ex=671ebbe2&is=671d6a62&hm=db8fcd3ade3180649c34cae98981d7ffb596048b5544eb28e3c690539a66f9ec&');
+  background-image: url('https://cdn.discordapp.com/attachments/1299859288969445430/1299860918267543675/cast_icon_white.png?ex=671ebd51&is=671d6bd1&hm=e7f1d56de71693c486f54c96f794853cd9155cf80c233406834ac6c37a841708&');
   background-size: contain;
   background-repeat: no-repeat;
+  background-color: transparent; /* Rendre le fond invisible */
   border: none;
   cursor: pointer;
   z-index: 10;
