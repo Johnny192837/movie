@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const video = document.getElementById("videoPlayer");
     const audio = document.getElementById("audioPlayer");
 
-    // Récupération des URLs de vidéo et d’audio à partir des paramètres de l'URL
+    // Récupération des URLs de vidéo et d’audio
     const urlParams = new URLSearchParams(window.location.search);
     const videoUrl = urlParams.get('video');
     const audioUrl = urlParams.get('audio');
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         video.src = videoUrl;
     }
 
-    // Chargement de l'audio M3U8 localement
+    // Chargement de l'audio M3U8
     if (Hls.isSupported()) {
         const hlsAudio = new Hls();
         hlsAudio.loadSource(audioUrl);
@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     const mediaInfo = new chrome.cast.media.MediaInfo(videoUrl, 'application/x-mpegURL');
                     const request = new chrome.cast.media.LoadRequest(mediaInfo);
 
-                    // Cast uniquement la vidéo, sans l'audio local
                     castSession.loadMedia(request).then(
                         () => console.log("Casting de la vidéo en cours..."),
                         error => console.error("Erreur de cast :", error)
@@ -60,8 +59,5 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // Bouton pour démarrer le cast
-    document.getElementById('castButton').addEventListener('click', () => {
-        cast.framework.CastContext.getInstance().requestSession();
-    });
-});
+    // Action du bouton Cast
+    document.getElementById("
