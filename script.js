@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const video = document.getElementById("videoPlayer");
     const audio = document.getElementById("audioPlayer");
 
-    // Récupération des URLs de vidéo et d’audio
+    // Récupération des URLs de vidéo et d’audio à partir des paramètres de l'URL
     const urlParams = new URLSearchParams(window.location.search);
     const videoUrl = urlParams.get('video');
     const audioUrl = urlParams.get('audio');
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         video.src = videoUrl;
     }
 
-    // Chargement de l'audio M3U8
+    // Chargement de l'audio M3U8 localement
     if (Hls.isSupported()) {
         const hlsAudio = new Hls();
         hlsAudio.loadSource(audioUrl);
@@ -26,4 +26,42 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Synchronisation audio avec la vidéo
-    video.addEventListener("play", () =>
+    video.addEventListener("play", () => audio.play());
+    video.addEventListener("pause", () => audio.pause());
+    video.addEventListener("seeked", () => (audio.currentTime = video.currentTime));
+    video.addEventListener("timeupdate", () => {
+        if (Math.abs(video.currentTime - audio.currentTime) > 0.3) {
+            audio.currentTime = video.currentTime;
+        }
+    });
+
+    // Initialisation du Cast
+    window['__onGCastApiAvailable'] = function (isAvailable) {
+        if (isAvailable) {
+            const context = cast.framework.CastContext.getInstance();
+            context.setOptions({
+                receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
+                autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
+            });
+
+            context.addEventListener(cast.framework.CastContextEventType.SESSION_STATE_CHANGED, event => {
+                if (event.sessionState === cast.framework.SessionState.SESSION_STARTED) {
+                    const castSession = context.getCurrentSession();
+                    const mediaInfo = new chrome.cast.media.MediaInfo(videoUrl, 'application/x-mpegURL');
+                    const request = new chrome.cast.media.LoadRequest(mediaInfo);
+
+                    // Cast uniquement la vidéo, sans l'audio local
+                    castSession.loadMedia(request).then(
+                        () => console.log("Casting de la vidéo en cours..."),
+                        error => console.error("Erreur de cast :", error)
+                    );
+                }
+            });
+        }
+    };
+
+    // Bouton pour démarrer le cast
+    document.getElementById('castButton').addEventListener('click', () => {
+        cast.framework.CastContext.getInstance().requestSession();
+    });
+});
