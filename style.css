@@ -29,26 +29,23 @@ video {
     object-fit: cover;
 }
 
-.cast-button, .settings-button {
+.buttons-container {
     position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.cast-button, .settings-button {
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 10px;
-}
-
-.cast-button {
-    top: 10px;
-    right: 10px;
-}
-
-.settings-button {
-    top: 10px;
-    left: 10px;
+    padding: 5px;
 }
 
 .cast-button img, .settings-button img {
     width: 24px;
     height: 24px;
-    filter: invert(100%); /* Makes the icons white */
+    filter: invert(100%); /* Rend les icônes blanches */
 }
