@@ -13,6 +13,8 @@ video {
     width: 100vw;
     height: 100vh;
     object-fit: cover;
+    position: relative;
+    z-index: 1;
 }
 
 .video-controls {
@@ -21,6 +23,7 @@ video {
     right: 20px;
     display: flex;
     gap: 10px;
+    z-index: 2; /* Les boutons apparaîtront au-dessus de la vidéo */
 }
 
 .icon-button {
