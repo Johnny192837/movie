@@ -1,3 +1,4 @@
+console.log("tesrt");
 document.addEventListener("DOMContentLoaded", function () {
     const video = document.getElementById("videoPlayer");
     const audio = document.getElementById("audioPlayer");
