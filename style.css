@@ -47,5 +47,4 @@ video {
 .cast-button img, .settings-button img {
     width: 24px;
     height: 24px;
-    filter: invert(100%); /* Rend les icônes blanches */
 }
