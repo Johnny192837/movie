@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Cast</title>
+    <title>Movie</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+    <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
 </head>
 <body>
-    <div class="video-container">
-        <video id="videoPlayer" controls autoplay></video>
-        <audio id="audioPlayer" style="display:none;"></audio>
-
-        <!-- Boutons "Settings" et "Cast" en haut à droite -->
-        <div class="buttons-container">
-            <button id="settingsButton" class="settings-button">
-                <img src="https://cdn.discordapp.com/attachments/1299859288969445430/1299957795730493470/settings_icon_white.png?ex=671f178a&is=671dc60a&hm=aae4cd19c089cd778e87a78ed17653e9486629b1e4acbb433378fcfa84d35a56&" alt="Settings">
-            </button>
-            <button id="castButton" class="cast-button">
-                <img src="https://cdn.discordapp.com/attachments/1299859288969445430/1299860918267543675/cast_icon_white.png?ex=671f6611&is=671e1491&hm=e145880e7accf18ee244d17124fc0afc609380af7c78dee473724e927a930284&" alt="Cast">
-            </button>
-        </div>
+    <div class="video-controls">
+        <!-- Bouton Paramètres -->
+        <button id="settingsButton" class="icon-button">
+            <img src="https://cdn.discordapp.com/attachments/1299859288969445430/1299957795730493470/settings_icon_white.png?ex=671f178a&is=671dc60a&hm=aae4cd19c089cd778e87a78ed17653e9486629b1e4acbb433378fcfa84d35a56" alt="Paramètres" class="icon-image">
+        </button>
+        
+        <!-- Bouton Cast -->
+        <button id="castButton" class="icon-button">
+            <img src="https://cdn.discordapp.com/attachments/1299859288969445430/1299860918267543675/cast_icon_white.png?ex=671ebd51&is=671d6bd1&hm=e7f1d56de71693c486f54c96f794853cd9155cf80c233406834ac6c37a841708" alt="Cast" class="icon-image">
+        </button>
     </div>
+
+    <video id="videoPlayer" controls autoplay></video>
+    <audio id="audioPlayer" controls style="display:none;"></audio>
+
     <script src="script.js"></script>
 </body>
 </html>
