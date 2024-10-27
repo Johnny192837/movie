@@ -3,42 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>movie</title>
+    <title>Movie</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
 </head>
 <body>
-    <audio id="audioPlayer" style="display:none;"></audio>
-    
-    <div id="videoContainer">
-        <video id="videoPlayer" controls autoplay></video>
+    <div class="video-controls">
+        <!-- Bouton Paramètres -->
+        <button id="settingsButton" class="icon-button">
+            <img src="https://cdn.discordapp.com/attachments/1299859288969445430/1299957795730493470/settings_icon_white.png?ex=671f178a&is=671dc60a&hm=aae4cd19c089cd778e87a78ed17653e9486629b1e4acbb433378fcfa84d35a56" alt="Paramètres" class="icon-image">
+        </button>
+        
+        <!-- Bouton Cast -->
+        <button id="castButton" class="icon-button">
+            <img src="https://cdn.discordapp.com/attachments/1299859288969445430/1299860918267543675/cast_icon_white.png?ex=671ebd51&is=671d6bd1&hm=e7f1d56de71693c486f54c96f794853cd9155cf80c233406834ac6c37a841708" alt="Cast" class="icon-image">
+        </button>
     </div>
 
-    <!-- Bouton manuel pour le Cast -->
-    <button id="castButton" aria-label="Cast"></button>
+    <video id="videoPlayer" controls autoplay></video>
+    <audio id="audioPlayer" controls style="display:none;"></audio>
 
     <script src="script.js"></script>
-    <script>
-        // Initialisation du Cast
-        window['__onGCastApiAvailable'] = function(isAvailable) {
-            if (isAvailable) {
-                const context = cast.framework.CastContext.getInstance();
-                context.setOptions({
-                    receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
-                    autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
-                });
-                
-                // Configuration du bouton Cast
-                const castButton = document.getElementById('castButton');
-                castButton.onclick = () => {
-                    context.requestSession().then(
-                        () => console.log('Casting en cours...'),
-                        error => console.error('Erreur de cast :', error)
-                    );
-                };
-            }
-        };
-    </script>
 </body>
 </html>
